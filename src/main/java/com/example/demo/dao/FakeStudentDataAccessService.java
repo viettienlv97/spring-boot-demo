@@ -14,7 +14,7 @@ public class FakeStudentDataAccessService implements StudentDao {
     private static List<Student> DB = new ArrayList<>();
     @Override
     public int insertStudent(UUID id, Student student) {
-        DB.add(new Student(id, student.getName(), student.getGender()));
+        DB.add(new Student(id, student.getName(), student.getGender(), student.getEmail()));
         return 1;
     }
 
@@ -36,7 +36,11 @@ public class FakeStudentDataAccessService implements StudentDao {
                 .map(student -> {
                     int index = DB.indexOf(student);
                     if (index >= 0) {
-                        DB.set(index, new Student(id, update.getName(), update.getGender()));
+                        DB.set(index,
+                                new Student(id,
+                                        update.getName(),
+                                        update.getGender(),
+                                        update.getEmail()));
                         return 1;
                     }
                     return 0;
