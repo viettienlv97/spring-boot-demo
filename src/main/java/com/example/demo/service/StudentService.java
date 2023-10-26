@@ -21,7 +21,7 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public StudentResponse addStudent(Student student) {
+    public ApiResponse<StudentResponse> addStudent(Student student) {
         return studentDao.insertStudent(student);
     }
 

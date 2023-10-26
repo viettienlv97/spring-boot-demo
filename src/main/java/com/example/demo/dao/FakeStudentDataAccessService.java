@@ -13,13 +13,16 @@ import java.util.UUID;
 @Repository("fakeStudentDao")
 public class FakeStudentDataAccessService implements StudentDao {
     private static final List<Student> DB = new ArrayList<>();
+
     @Override
-    public StudentResponse insertStudent(UUID id, Student student) {
-        Optional<Student> studentSameEmail = DB.stream()
-                .filter(std -> std.getEmail().equals(student.getEmail())).findAny();
-        if (studentSameEmail.isEmpty()) {
+    public ApiResponse<StudentResponse> insertStudent(UUID id, Student student) {
+        boolean hasStudentWithSameEmail = DB.stream()
+                .anyMatch(std -> std.getEmail().equals(student.getEmail()));
+
+        if (hasStudentWithSameEmail) {
             System.out.println("Occur same email");
-            return null;
+            int code = -2;
+            return new ApiResponse<>(code, null);
         }
 
         DB.add(new Student(id, student.getName(), student.getGender(), student.getEmail()));
@@ -28,7 +31,8 @@ public class FakeStudentDataAccessService implements StudentDao {
         Optional<Student> insertedStudent = DB.stream()
             .filter(std -> std.getId().equals(id))
             .findFirst();
-        return new StudentResponse(insertedStudent.orElse(null), totalCount);
+
+        return new ApiResponse<>(0, new StudentResponse(insertedStudent.orElse(null), totalCount));
     }
 
     @Override

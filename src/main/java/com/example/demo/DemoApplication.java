@@ -15,8 +15,4 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@GetMapping
-	public List<String> hello() {
-		return List.of("Hello", "World");
-	}
 }

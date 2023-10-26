@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface StudentDao {
-    StudentResponse insertStudent(UUID id, Student student);
+    ApiResponse<StudentResponse> insertStudent(UUID id, Student student);
 
-    default StudentResponse insertStudent(Student student) {
+    default ApiResponse<StudentResponse> insertStudent(Student student) {
         UUID id = UUID.randomUUID();
         return insertStudent(id, student);
     }

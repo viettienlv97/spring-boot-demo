@@ -23,7 +23,7 @@ public class StudentController {
 
     @CrossOrigin(origins = "*")
     @PostMapping
-    public StudentResponse addStudent(@RequestBody Student student) {
+    public ApiResponse<StudentResponse> addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
 
     }
