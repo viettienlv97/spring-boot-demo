@@ -1,7 +1,8 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.Person;
-import com.example.demo.model.Student;
+import com.example.demo.model.ApiResponse;
+import com.example.demo.model.student.Student;
+import com.example.demo.model.student.StudentResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,16 +12,31 @@ import java.util.UUID;
 
 @Repository("fakeStudentDao")
 public class FakeStudentDataAccessService implements StudentDao {
-    private static List<Student> DB = new ArrayList<>();
+    private static final List<Student> DB = new ArrayList<>();
     @Override
-    public int insertStudent(UUID id, Student student) {
+    public StudentResponse insertStudent(UUID id, Student student) {
+        Optional<Student> studentSameEmail = DB.stream()
+                .filter(std -> std.getEmail().equals(student.getEmail())).findAny();
+        if (studentSameEmail.isEmpty()) {
+            System.out.println("Occur same email");
+            return null;
+        }
+
         DB.add(new Student(id, student.getName(), student.getGender(), student.getEmail()));
-        return 1;
+        int totalCount = DB.size();
+
+        Optional<Student> insertedStudent = DB.stream()
+            .filter(std -> std.getId().equals(id))
+            .findFirst();
+        return new StudentResponse(insertedStudent.orElse(null), totalCount);
     }
 
     @Override
-    public List<Student> selectAllStudent() {
-        return DB;
+    public ApiResponse<List<Student>> selectAllStudent() {
+        List<Student> students = DB;
+        int code = students.isEmpty() ? -1 : 0;
+
+        return new ApiResponse<>(code, students);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.StudentDao;
-import com.example.demo.model.Student;
+import com.example.demo.model.ApiResponse;
+import com.example.demo.model.student.Student;
+import com.example.demo.model.student.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,11 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public int addStudent(Student student) {
+    public StudentResponse addStudent(Student student) {
         return studentDao.insertStudent(student);
     }
 
-    public List<Student> getAllStudent() {
+    public ApiResponse<List<Student>> getAllStudent() {
         return studentDao.selectAllStudent();
     }
 

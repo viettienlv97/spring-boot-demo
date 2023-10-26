@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.model.student;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +10,7 @@ public class Student {
     private final int gender;
     private final String email;
 
-    private static int count;
+    public static int count = 0;
 
     public Student(@JsonProperty("id") UUID id,
                    @JsonProperty("name") String name,
@@ -20,7 +20,6 @@ public class Student {
         this.name = name;
         this.gender = gender;
         this.email = email;
-        count ++;
     }
 
     public UUID getId() {
@@ -37,9 +36,5 @@ public class Student {
 
     public String getEmail() {
         return email;
-    }
-
-    public static int getCount() {
-        return count;
     }
 }
