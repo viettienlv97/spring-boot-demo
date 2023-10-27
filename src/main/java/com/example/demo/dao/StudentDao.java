@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.ApiResponse;
+import com.example.demo.model.student.ListStudent;
 import com.example.demo.model.student.Student;
 import com.example.demo.model.student.StudentResponse;
 
@@ -9,18 +10,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface StudentDao {
-    ApiResponse<StudentResponse> insertStudent(UUID id, Student student);
+    ApiResponse<UUID> insertStudent(UUID id, Student student);
 
-    default ApiResponse<StudentResponse> insertStudent(Student student) {
+    default ApiResponse<UUID> insertStudent(Student student) {
         UUID id = UUID.randomUUID();
         return insertStudent(id, student);
     }
 
-    ApiResponse<List<Student>> selectAllStudent();
+    ApiResponse<ListStudent> selectAllStudent();
 
-    Optional<Student> selectStudentById(UUID id);
+    ApiResponse<Optional<Student>> selectStudentById(UUID id);
 
-    int updateStudentById(UUID id, Student student);
+    ApiResponse<UUID> updateStudentById(UUID id, Student student);
 
-    int deleteStudentById(UUID id);
+    ApiResponse<UUID> deleteStudentById(UUID id);
 }

@@ -2,6 +2,7 @@ package com.example.demo.api;
 
 
 import com.example.demo.model.ApiResponse;
+import com.example.demo.model.student.ListStudent;
 import com.example.demo.model.student.Student;
 import com.example.demo.model.student.StudentResponse;
 import com.example.demo.service.StudentService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("api/v1/student")
@@ -23,31 +25,36 @@ public class StudentController {
 
     @CrossOrigin(origins = "*")
     @PostMapping
-    public ApiResponse<StudentResponse> addStudent(@RequestBody Student student) {
+    public ApiResponse<UUID> addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
-
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping
-    public ApiResponse<List<Student>> getAllStudent() {
+    public ApiResponse<ListStudent> getAllStudent() {
         return studentService.getAllStudent();
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "{id}")
-    public Student getStudentById(@PathVariable("id") UUID id) {
-        return studentService.getStudentById(id)
-                .orElse(null);
+    public ApiResponse<Optional<Student>> getStudentById(@PathVariable("id") String id) {
+        try {
+            UUID theId = UUID.fromString(id);
+            return studentService.getStudentById(theId);
+        } catch (Exception e) {
+            return studentService.invalidInput();
+        }
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping(path = "{id}")
-    public void updateStudentById(@PathVariable("id") UUID id,@RequestBody Student student) {
-        studentService.updateStudentById(id, student);
+    public ApiResponse<UUID> updateStudentById(@PathVariable("id") UUID id,@RequestBody Student student) {
+        return studentService.updateStudentById(id, student);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping(path = "{id}")
-    public void deleteStudentById(@PathVariable("id") UUID id) {
-        studentService.deleteStudentById(id);
+    public ApiResponse<UUID> deleteStudentById(@PathVariable("id") UUID id) {
+        return studentService.deleteStudentById(id);
     }
 }

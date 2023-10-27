@@ -1,7 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.ResponseCode;
+import com.example.demo.ResponseStatus;
 import com.example.demo.dao.StudentDao;
 import com.example.demo.model.ApiResponse;
+import com.example.demo.model.student.ListStudent;
 import com.example.demo.model.student.Student;
 import com.example.demo.model.student.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,23 +24,27 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public ApiResponse<StudentResponse> addStudent(Student student) {
+    public ApiResponse<UUID> addStudent(Student student) {
         return studentDao.insertStudent(student);
     }
 
-    public ApiResponse<List<Student>> getAllStudent() {
+    public ApiResponse<ListStudent> getAllStudent() {
         return studentDao.selectAllStudent();
     }
 
-    public Optional<Student> getStudentById(UUID id) {
+    public ApiResponse<Optional<Student>> getStudentById(UUID id) {
         return studentDao.selectStudentById(id);
     }
 
-    public int updateStudentById(UUID id, Student student) {
+    public ApiResponse<UUID> updateStudentById(UUID id, Student student) {
         return studentDao.updateStudentById(id, student);
     }
 
-    public int deleteStudentById(UUID id) {
+    public ApiResponse<UUID> deleteStudentById(UUID id) {
         return studentDao.deleteStudentById(id);
+    }
+
+    public <T> ApiResponse<T> invalidInput() {
+        return new ApiResponse<>(ResponseCode.INVALID_INPUT, ResponseStatus.FAIL);
     }
 }
