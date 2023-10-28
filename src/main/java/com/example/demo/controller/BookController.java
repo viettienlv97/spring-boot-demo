@@ -49,4 +49,9 @@ public class BookController {
     public ApiResponse<UUID> deleteBookById(@PathVariable UUID id) {
         return bookService.deleteBookById(id);
     }
+
+    @PutMapping("/set-category/{bookId}/{categoryId}")
+    public ApiResponse<UUID> addBookCategory(@PathVariable UUID bookId, @PathVariable UUID categoryId) {
+        return bookService.setBookCategory(bookId, categoryId);
+    }
 }
