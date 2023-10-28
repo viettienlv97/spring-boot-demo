@@ -1,11 +1,9 @@
 package com.example.demo.dao;
 
-import com.example.demo.model.ApiResponse;
+import com.example.demo.response.ApiResponse;
 import com.example.demo.model.student.ListStudent;
 import com.example.demo.model.student.Student;
-import com.example.demo.model.student.StudentResponse;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

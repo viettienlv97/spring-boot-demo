@@ -2,21 +2,23 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    private Long id;
+    private UUID id;
 
     private String name;
     private String email;
 
     // Constructors, Getters, and Setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

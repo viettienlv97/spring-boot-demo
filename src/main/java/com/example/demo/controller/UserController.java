@@ -1,5 +1,6 @@
-package com.example.demo.api;
+package com.example.demo.controller;
 
+import com.example.demo.response.ApiResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -17,43 +19,42 @@ public class UserController {
     // Create a new user
     @CrossOrigin(origins = "*")
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public ApiResponse<UUID> createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 
     // Get all users
     @CrossOrigin(origins = "*")
     @GetMapping
-    public List<User> getAllUsers() {
+    public ApiResponse<List<User>> getAllUsers() {
         return userService.getAllUsers();
     }
 
     // Get user by ID
     @CrossOrigin(origins = "*")
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
+    public ApiResponse<Optional<User>> getUserById(@PathVariable UUID id) {
         return userService.getUserById(id);
     }
 
     // Update user by ID
     @CrossOrigin(origins = "*")
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ApiResponse<UUID> updateUser(@PathVariable UUID id, @RequestBody User userDetails) {
         return userService.updateUser(id, userDetails);
     }
 
     // Delete all users
     @CrossOrigin(origins = "*")
-    @DeleteMapping
-    public String deleteAllUsers() {
-        userService.deleteAllUsers();
-        return "All users have been deleted successfully.";
+    @DeleteMapping("/delete-all")
+    public ApiResponse<String> deleteAllUsers() {
+        return userService.deleteAllUsers();
     }
 
     // Delete user by ID
     @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public ApiResponse<UUID> deleteUser(@PathVariable UUID id) {
+        return userService.deleteUser(id);
     }
 }

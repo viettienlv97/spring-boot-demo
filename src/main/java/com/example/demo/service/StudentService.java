@@ -1,17 +1,15 @@
 package com.example.demo.service;
 
-import com.example.demo.ResponseCode;
-import com.example.demo.ResponseStatus;
+import com.example.demo.response.Code;
+import com.example.demo.response.Status;
 import com.example.demo.dao.StudentDao;
-import com.example.demo.model.ApiResponse;
+import com.example.demo.response.ApiResponse;
 import com.example.demo.model.student.ListStudent;
 import com.example.demo.model.student.Student;
-import com.example.demo.model.student.StudentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -45,6 +43,6 @@ public class StudentService {
     }
 
     public <T> ApiResponse<T> invalidInput() {
-        return new ApiResponse<>(ResponseCode.INVALID_INPUT, ResponseStatus.FAIL);
+        return new ApiResponse<>(Code.INVALID_INPUT, Status.FAIL);
     }
 }

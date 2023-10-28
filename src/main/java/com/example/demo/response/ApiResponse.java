@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.response;
 
 public class ApiResponse<T> {
     private int code;

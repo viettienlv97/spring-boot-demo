@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.example.demo.response;
 
-public class ResponseStatus {
+public class Status {
     public static final String OK = "success";
     public static final String FAIL = "fail";
 

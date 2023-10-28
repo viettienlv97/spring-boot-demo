@@ -1,15 +1,13 @@
-package com.example.demo.api;
+package com.example.demo.controller;
 
 
-import com.example.demo.model.ApiResponse;
+import com.example.demo.response.ApiResponse;
 import com.example.demo.model.student.ListStudent;
 import com.example.demo.model.student.Student;
-import com.example.demo.model.student.StudentResponse;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
