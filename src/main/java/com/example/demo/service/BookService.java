@@ -79,4 +79,8 @@ public class BookService {
         bookRepository.save(book.get());
         return new ApiResponse<>(Code.OK, Status.OK, bookId);
     }
+
+    public List<Book> getBookByCategory(UUID categoryId) {
+        return bookRepository.findByCategoryId(categoryId);
+    }
 }

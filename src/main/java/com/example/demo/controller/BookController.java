@@ -54,4 +54,9 @@ public class BookController {
     public ApiResponse<UUID> addBookCategory(@PathVariable UUID bookId, @PathVariable UUID categoryId) {
         return bookService.setBookCategory(bookId, categoryId);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public ApiResponse<List<Book>> getBookByCategory(@PathVariable UUID categoryId) {
+        return new ApiResponse<>(Code.OK, Status.OK, bookService.getBookByCategory(categoryId));
+    }
 }
