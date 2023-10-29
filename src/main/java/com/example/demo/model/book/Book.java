@@ -1,9 +1,8 @@
 package com.example.demo.model.book;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,6 +16,9 @@ public class Book {
 
     private UUID categoryId;
     private String categoryName;
+
+    @OneToMany(mappedBy = "book")
+    Set<CategoriesOfBooks> categories;
 
     public UUID getId() {
         return id;
@@ -56,5 +58,13 @@ public class Book {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Set<CategoriesOfBooks> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<CategoriesOfBooks> categories) {
+        this.categories = categories;
     }
 }
